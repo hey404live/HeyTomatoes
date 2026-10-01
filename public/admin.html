@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <title>Administrar películas · HeyTomatoes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin.css">
+  <script src="/admin.js" defer></script>
+</head>
+<body>
+  <header class="admin-header">
+    <a class="brand" href="/"><span class="brand-mark">H</span><span>hey<span class="brand-red">tomatoes</span></span></a>
+    <a class="back-link" href="/">← Volver al catálogo</a>
+  </header>
+  <main class="admin-main">
+    <div class="page-intro">
+      <div class="eyebrow"><span></span> PANEL DE ADMINISTRACIÓN</div>
+      <h1>Gestiona tu <em>catálogo.</em></h1>
+      <p>Agrega películas y mantén la información del catálogo al día.</p>
+    </div>
+
+    <section class="access-panel" aria-labelledby="access-title">
+      <div class="access-heading"><div><span class="step">01</span><h2 id="access-title">Acceso de administrador</h2></div><button class="text-button" id="disconnect" type="button" hidden>Cerrar sesión</button></div>
+      <p>Introduce el valor de <code>ADMIN_API_KEY</code> configurado en tu archivo <code>.env</code>.</p>
+      <form id="access-form" class="access-form">
+        <label class="sr-only" for="admin-key">Clave de administrador</label>
+        <input id="admin-key" type="password" autocomplete="current-password" placeholder="Clave de administrador" required>
+        <button class="button button-dark" type="submit">Conectar <span>→</span></button>
+      </form>
+      <div id="access-message" class="message" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="workspace" class="workspace" hidden>
+      <div class="admin-columns">
+        <section class="panel movie-form-panel" aria-labelledby="form-title">
+          <div class="panel-heading"><div><span class="step">02</span><h2 id="form-title">Agregar película</h2></div><span class="panel-icon">＋</span></div>
+          <p class="panel-copy">Completa los datos para publicarla en el catálogo.</p>
+          <form id="movie-form">
+            <label for="title">Título</label>
+            <input id="title" name="title" type="text" maxlength="200" placeholder="Ej. El viaje de Chihiro" required>
+            <label for="imageUrl">URL de la imagen</label>
+            <input id="imageUrl" name="imageUrl" type="url" maxlength="2048" placeholder="https://ejemplo.com/poster.jpg" required>
+            <label for="description">Descripción</label>
+            <textarea id="description" name="description" maxlength="10000" rows="5" placeholder="¿De qué trata la película?" required></textarea>
+            <div id="form-message" class="message" role="status" aria-live="polite"></div>
+            <div class="form-actions"><button class="button button-primary" id="save-movie" type="submit">Guardar película <span>→</span></button><button class="button button-quiet" id="cancel-edit" type="button" hidden>Cancelar edición</button></div>
+          </form>
+        </section>
+
+        <section class="panel catalog-panel" aria-labelledby="catalog-title">
+          <div class="panel-heading"><div><span class="step">03</span><h2 id="catalog-title">Películas publicadas</h2></div><button id="refresh" class="refresh-button" type="button" aria-label="Actualizar lista">↻</button></div>
+          <p class="panel-copy"><span id="movie-count">—</span> en el catálogo</p>
+          <div id="catalog-message" class="message" role="status" aria-live="polite"></div>
+          <div id="movie-list" class="movie-list"></div>
+        </section>
+      </div>
+      <p class="security-note"><span>◆</span> La clave se conserva solo en esta pestaña y se envía al API en cada solicitud.</p>
+    </section>
+  </main>
+  <footer><span>HeyTomatoes · Panel de administración</span><span>© 2026</span></footer>
+</body>
+</html>

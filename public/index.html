@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <title>HeyTomatoes — Cine para compartir</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="HeyTomatoes inicio"><span class="brand-mark">H</span><span>hey<span class="brand-red">tomatoes</span></span></a>
+    <nav><a href="#peliculas">Películas</a><a href="#acerca">Acerca de</a></nav>
+    <a class="nav-cta" href="#peliculas">Explorar catálogo <span>↗</span></a>
+  </header>
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> TU PRÓXIMA GRAN HISTORIA</div>
+        <h1>Películas que<br>se quedan <em>contigo.</em></h1>
+        <p>Descubre historias nuevas, revive tus favoritas y comparte lo que el cine te hace sentir.</p>
+        <a class="primary-button" href="#peliculas">Descubrir películas <span>→</span></a>
+        <div class="hero-note"><span class="note-star">★</span><span>El cine se disfruta más<br><b>cuando se comparte.</b></span></div>
+      </div>
+      <div class="hero-art" aria-label="Ilustración de palomitas de cine">
+        <div class="art-glow"></div><div class="ticket ticket-back">HEY TOMATOES&nbsp; · &nbsp;CINEMA CLUB</div>
+        <div class="popcorn-bucket"><div class="popcorn"><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div><div class="bucket-stripes"></div><div class="bucket-label">hey<span>tomatoes</span></div></div>
+        <span class="sparkle sparkle-one">✳</span><span class="sparkle sparkle-two">✦</span><span class="sparkle sparkle-three">✳</span>
+        <div class="art-caption"><span>01 / 03</span><span>Una historia empieza aquí</span></div>
+      </div>
+    </section>
+    <section class="catalog" id="peliculas">
+      <div class="section-heading"><div><div class="eyebrow"><span></span> EN CARTELERA</div><h2>Historias para <em>descubrir</em></h2></div><p>Elige una película,<br>déjate sorprender.</p></div>
+      <div id="status" class="status" role="status">Cargando películas…</div>
+      <div id="movie-grid" class="movie-grid"></div>
+    </section>
+    <section class="about" id="acerca"><span class="about-mark">“</span><p>Una buena película no termina cuando aparecen los créditos.<br><em>Empieza cuando tienes con quién hablar de ella.</em></p><span class="about-signature">— HeyTomatoes</span></section>
+  </main>
+  <footer><a class="brand" href="#inicio"><span class="brand-mark">H</span><span>hey<span class="brand-red">tomatoes</span></span></a><span>Hecho para quienes aman las buenas historias.</span><span>© 2026 HeyTomatoes</span></footer>
+  <dialog id="review-dialog"><form method="dialog" class="dialog-close"><button aria-label="Cerrar">×</button></form><div id="dialog-content"></div></dialog>
+  <script src="/app.js" defer></script>
+</body>
+</html>
