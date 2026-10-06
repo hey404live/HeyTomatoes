@@ -12,7 +12,7 @@ Aplicación web de catálogo de películas con API en Node.js/TypeScript, Postgr
 1. Copia `.env.example` a `.env` y cambia `ADMIN_API_KEY` por una clave secreta larga.
 2. Inicia PostgreSQL con `docker compose up -d db`.
 3. Instala dependencias con `npm install`.
-4. Crea las tablas con `npm run db:init` (el contenedor también las crea al inicializar un volumen nuevo).
+4. Para desarrollo local, crea las tablas con `npm run db:init` (el contenedor también las crea al inicializar un volumen nuevo). En despliegues, `npm start` inicializa el esquema antes de arrancar el servidor; asegúrate de que `DATABASE_URL` apunte a la base PostgreSQL correcta y que el usuario tenga permisos para crear tablas e índices.
 5. Inicia el servidor con `npm run dev` y abre <http://localhost:3000>.
 
 ## API
