@@ -1,0 +1,12 @@
+{
+  "name": "heytomatoes",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm ci --prefix cliente --include=dev",
+    "build": "npm run build --prefix cliente"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

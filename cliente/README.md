@@ -18,6 +18,12 @@ npm run build
 npm run preview
 ```
 
+## Despliegue desde la raíz del repositorio
+
+La raíz contiene un `package.json` y un `package-lock.json` para plataformas que instalan las dependencias antes de entrar en `cliente`. Al ejecutar `npm ci` en la raíz, `postinstall` instala las dependencias del cliente con su propio lockfile, incluidas las herramientas de compilación.
+
+El comando generado por la plataforma, `npm ci && cd cliente && npm run build`, produce `cliente/dist`. También puedes ejecutar `npm ci && npm run build` desde la raíz con el mismo resultado. Configura `API_URL` como variable disponible durante la compilación del cliente.
+
 ## Incluye
 
 - Catálogo con búsqueda, filtros por género y ordenación.
