@@ -59,7 +59,7 @@ curl -X DELETE http://127.0.0.1:3000/peliculas/ID
 
 ## Almacenamiento
 
-La API usa PostgreSQL para todas las lecturas y escrituras de películas y reseñas, y calcula los promedios en SQL. Configura PGHOST, PGPORT, PGUSER, PGPASSWORD y PGDATABASE en el `.env` de la raíz. Las tablas son `public.peliculas` y `public.resenas`; los scripts de creación están en `migrations/`. La API comprueba la conexión y las tablas al arrancar. No vuelve al almacenamiento JSON si falla la base de datos.
+La API usa PostgreSQL para todas las lecturas y escrituras de películas y reseñas, y calcula los promedios en SQL. Configura `DATABASE_URL` en el `.env` de la raíz (o en el entorno del proceso), con el formato `postgresql://usuario:contraseña@host:5432/base_de_datos`. Codifica los caracteres especiales del usuario y la contraseña con percent-encoding. La API no inicia si falta esta variable o está vacía. Las tablas son `public.peliculas` y `public.resenas`; los scripts de creación están en `migrations/`. La API comprueba la conexión y las tablas al arrancar. No vuelve al almacenamiento JSON si falla la base de datos.
 
 Las consultas usan parámetros; PATCH modifica solo los campos enviados. Las reseñas se conservan al editar y se eliminan en cascada al borrar una película. El pool de conexiones se cierra al detener el servidor.
 

@@ -1,6 +1,8 @@
 import pg from 'pg';
 export function createPool(options = {}) {
-  const pool = new pg.Pool({ connectionTimeoutMillis: 5000, ...options });
+  const connectionString = process.env.DATABASE_URL;
+  if (!connectionString?.trim()) throw new Error('Debes configurar DATABASE_URL para conectar con PostgreSQL.');
+  const pool = new pg.Pool({ connectionTimeoutMillis: 5000, ...options, connectionString });
   pool.on('error', () => console.error('Se perdió una conexión inactiva con PostgreSQL.'));
   return pool;
 }
