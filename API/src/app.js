@@ -57,7 +57,7 @@ async function readBody(req) {
   catch { throw fail(400, 'El cuerpo no contiene JSON válido.'); }
 }
 
-export async function createApi({ pool, adminToken = process.env.ADMIN_TOKEN } = {}) {
+export async function createApi({ pool, adminToken = process.env.ADMIN_TOKEN, corsOrigins = process.env.CORS_ORIGINS || '' } = {}) {
   if (typeof adminToken !== 'string' || !adminToken.trim()) throw new Error('Configura ADMIN_TOKEN antes de iniciar la API.');
   const tokenHash = createHash('sha256').update(adminToken).digest();
   const authorized = header => {
@@ -66,6 +66,19 @@ export async function createApi({ pool, adminToken = process.env.ADMIN_TOKEN } =
   };
   if (!pool) throw new Error('Configura la conexión PostgreSQL.');
   const repository = createRepository(pool);
+  const allowedOrigins = new Set([
+    'null', 'http://localhost:5173', 'http://127.0.0.1:5173',
+    'http://localhost:4173', 'http://127.0.0.1:4173',
+    'https://heytomatoes-07u5oet.apps.unbroker.cloud',
+  ]);
+  for (const value of corsOrigins.split(',').map(value => value.trim()).filter(Boolean)) {
+    let url;
+    try { url = new URL(value); } catch { throw new Error('CORS_ORIGINS debe contener orígenes HTTP/HTTPS separados por comas.'); }
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.pathname !== '/' || url.search || url.hash) {
+      throw new Error('CORS_ORIGINS debe contener orígenes HTTP/HTTPS sin rutas ni credenciales.');
+    }
+    allowedOrigins.add(url.origin);
+  }
 
   return createServer(async (req, res) => {
     const json = (status, body, headers = {}) => {
@@ -75,15 +88,14 @@ export async function createApi({ pool, adminToken = process.env.ADMIN_TOKEN } =
     // Los archivos file:// se presentan al servidor con Origin: null.
     res.setHeader('Vary', 'Origin');
     const origin = req.headers.origin;
-    const allowedOrigins = ['null', 'http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:4173', 'http://127.0.0.1:4173'];
-    if (origin && !allowedOrigins.includes(origin)) {
+    if (origin && !allowedOrigins.has(origin)) {
       json(403, { error: 'Origen no permitido.' });
       return;
     }
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.has(origin)) {
       res.setHeader('Access-Control-Allow-Origin', origin);
     }
-    if (req.method === 'OPTIONS' && allowedOrigins.includes(origin)) {
+    if (req.method === 'OPTIONS' && allowedOrigins.has(origin)) {
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
       res.writeHead(204);

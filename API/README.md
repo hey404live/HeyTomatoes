@@ -69,7 +69,7 @@ Las pruebas `npm test` usan esquemas temporales de PostgreSQL y los eliminan al 
 
 ## Peticiones desde un HTML local
 
-Se admite `Origin: null` para abrir el cliente de pruebas mediante `file:///Users/Hey404/Desktop/http/index.html`. Incluye soporte de preflight OPTIONS para GET, POST, PUT, PATCH y DELETE con Content-Type. Las páginas file:// comparten el origen opaco `null`: CORS no distingue ese archivo de otros archivos locales u otros documentos con ese origen. No se habilitan credenciales. Los orígenes web distintos se rechazan con HTTP 403; las herramientas sin cabecera Origin siguen funcionando.
+Se admite `Origin: null` para abrir el cliente de pruebas mediante `file:///Users/Hey404/Desktop/http/index.html`. Incluye soporte de preflight OPTIONS para GET, POST, PUT, PATCH y DELETE con Content-Type. Las páginas file:// comparten el origen opaco `null`: CORS no distingue ese archivo de otros archivos locales u otros documentos con ese origen. No se habilitan credenciales. Se permiten los orígenes locales del cliente y `https://heytomatoes-07u5oet.apps.unbroker.cloud`. Para autorizar dominios adicionales, configura `CORS_ORIGINS` en el servicio de la API con orígenes separados por comas (por ejemplo, `https://peliculas.example.com,https://www.peliculas.example.com`) y reinicia la API. Usa protocolo y dominio, sin rutas; no se admiten comodines. Los demás orígenes se rechazan con HTTP 403; las herramientas sin cabecera Origin siguen funcionando.
 
 Desde el HTML, utiliza la dirección HTTP de la API:
 
