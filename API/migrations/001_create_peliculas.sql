@@ -1,6 +1,8 @@
 BEGIN;
 
-CREATE TABLE public.peliculas (
+SELECT pg_advisory_xact_lock(hashtext('heytomatoes-schema-init'));
+
+CREATE TABLE IF NOT EXISTS public.peliculas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     imagen VARCHAR(2048) NOT NULL
         CHECK (imagen ~* '^https?://[^[:space:]]+$'),

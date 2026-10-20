@@ -1,6 +1,8 @@
 BEGIN;
 
-CREATE TABLE public.resenas (
+SELECT pg_advisory_xact_lock(hashtext('heytomatoes-schema-init'));
+
+CREATE TABLE IF NOT EXISTS public.resenas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     pelicula_id UUID NOT NULL REFERENCES public.peliculas(id) ON DELETE CASCADE,
     calificacion NUMERIC NOT NULL CHECK (calificacion BETWEEN 0 AND 5),
@@ -8,7 +10,7 @@ CREATE TABLE public.resenas (
     fecha_creacion TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX resenas_pelicula_fecha_idx
+CREATE INDEX IF NOT EXISTS resenas_pelicula_fecha_idx
     ON public.resenas (pelicula_id, fecha_creacion);
 
 COMMENT ON COLUMN public.resenas.pelicula_id IS 'Corresponde a peliculaId en la API.';
