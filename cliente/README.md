@@ -34,7 +34,13 @@ Estructura: `src/App.jsx` (vistas y componentes), `src/data.js` (contenido de pr
 
 ## Catálogo conectado
 
-La página principal carga GET /peliculas desde http://127.0.0.1:3000. Inicia primero la API con npm start desde API y después npm run dev desde cliente. La URL se puede configurar con VITE_API_URL en un archivo .env.local; reinicia Vite después de cambiarla. El servidor debe autorizar el origen del frontend en CORS.
+La página principal carga GET /peliculas desde http://127.0.0.1:3000. Inicia primero la API con npm start desde API y después npm run dev desde cliente. Configura `API_URL` en `cliente/.env.local` o en las variables de entorno del servicio del cliente. Puedes copiar `cliente/.env.example` como punto de partida. Por ejemplo:
+
+```dotenv
+API_URL=https://tu-api.example.com
+```
+
+Reinicia Vite después de cambiarla. En la nube, configura la variable antes de ejecutar `npm run build` y vuelve a compilar y desplegar cuando cambie: la URL queda incorporada en el cliente durante la compilación. `API_URL` tiene prioridad sobre la variable anterior `VITE_API_URL`, que sigue siendo compatible. Si ninguna está definida, se usa `http://127.0.0.1:3000`. El servidor debe autorizar el origen del frontend en CORS.
 
 El catálogo ya no utiliza películas de prueba. Incluye carga, reintento, catálogo vacío y géneros obtenidos del servidor. Las tarjetas consultan GET /peliculas/:id/promedio y muestran el promedio y el total reales; las reseñas se guardan en la API y los favoritos siguen siendo locales. El panel permite crear, editar y borrar películas mediante la API.
 
