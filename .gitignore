@@ -1,0 +1,12 @@
+
+.env
+.env.*
+!.env.example
+
+# Dependencias y archivos locales
+node_modules/
+dist/
+.DS_Store
+*.log
+*.pem
+*.key
